@@ -34,6 +34,17 @@ namespace GarlandBellDownloader
                 }
             }
 
+            //Download each icon 
+            foreach (var icon in icons)
+            {
+                int id = icon;
+                var client = new RestClient(@"https://garlandtools.org/");
+                var request = new RestRequest("files/icons/item/{id}.png");
+                request.AddUrlSegment("id", id);
+                client.DownloadData(request).SaveAs(AppDomain.CurrentDomain.BaseDirectory + @"Icons\" + id + ".png");
+                Console.WriteLine("Downloaded icon ID: {0}", id);
+            }
+
             Console.ReadLine();
         }
     }
